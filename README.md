@@ -1,0 +1,111 @@
+## 使用Gradle整合SpringBoot、Jetty和SQLite3。
+
+技术积累。。。
+
+---
+
+### 1. 初步整合
+
+#### 主要配置
+
+使用`IntelliJ IDEA`创建项目
+
+    Spring Initializr
+    Type: Gradle
+    Java: 8
+    Packaging: Jar
+
+![创建项目-1](docs/imgs/20210806102525.png)
+![创建项目-2](docs/imgs/20210806102610.png)
+
+配置`build.gradle`，使用`Jetty`替换`Tomcat`，引入`SQLite JDBC`驱动
+
+```
+// 排除Spring自带的内嵌Tomcat
+configurations {
+    implementation.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
+    implementation.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
+    implementation.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 解决SQLite JDBC驱动问题
+    implementation group:'org.xerial', name:'sqlite-jdbc', version:'3.34.0'
+}
+```
+
+创建`SQLite`数据库文件`mydb.db`，存放于`resources/static/sqlite/`目录下
+
+配置`application.yml`
+
+```
+server:
+  port: 8080
+  servlet:
+    context-path: /myapp
+  jetty:
+    threads:
+      acceptors: 2
+      selectors: 4
+
+spring:
+  mvc:
+    view:
+      suffix: .html
+      static-path-pattern: /**
+
+  web:
+    resources:
+      static-locations: classpath:/templates/,classpath:/static/
+
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite::resource:static/sqlite/mydb.db
+    username:
+    password:
+
+  jpa:
+    database-platform: com.example.sqlite.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+```
+
+#### 项目运行
+
+`Jetty`服务已嵌入，无需单独开启，可通过以下两种方式运行项目：
+
+1. `IDEA`中直接运行主类
+
+2. 使用`Gradle`的`build`命令将项目打包成jar文件，在终端中执行`java -jar your-file-path.jar`命令
+
+---
+
+### 2. 扩展功能
+
+#### AOP实现操作日志
+
+    AOP使用注解，获取用户IP、操作内容、操作时间等信息
+
+#### SSE实现日志实时展示
+
+    SSE (Server Send Event) 服务器发送事件
+
+    将用户的操作记录到数据库，并实时展示在log页面
+
+参考资料：
+
+* [SpringBoot 消息推送之 WebSocket 和 SseEmitter](https://www.jianshu.com/p/32d9989cae6f)
+
+待补充
+
+---
+
+_持续维护中。。。_
