@@ -80,11 +80,13 @@ spring:
 
 #### 项目运行
 
-`Jetty`服务已嵌入，无需单独开启，可通过以下两种方式运行项目：
+`Jetty`服务已嵌入，无需单独开启，可通过以下两种方式启动项目：
 
 1. `IDEA`中直接运行主类
 
 2. 使用`Gradle`的`build`命令将项目打包成jar文件，在终端中执行`java -jar your-file-path.jar`命令
+
+服务启动后，浏览器访问 http://localhost:8080/myapp 即可进入主页。
 
 ---
 
@@ -100,12 +102,12 @@ spring:
 
     将用户的操作记录到数据库，并实时展示在log页面
 
-参考资料：
+### 参考资料
+
+* [SpringBoot连接SQLite数据库](https://github.com/restart1025/Spring-Boot-SQLite)
 
 * [SpringBoot 消息推送之 WebSocket 和 SseEmitter](https://www.jianshu.com/p/32d9989cae6f)
 
-待补充
-
 ---
 
-_持续维护中。。。_
+_[持续维护中。。。](https://github.com/DDDDBX/demo-spring-jetty-sqlite)_
