@@ -41,7 +41,7 @@ dependencies {
 }
 ```
 
-创建`SQLite`数据库文件`mydb.db`，存放于`resources/static/sqlite/`目录下
+创建`SQLite`数据库文件`mydb.db`，存放于`resources/static/sqlite/`目录下，设计相关表结构并添加数据
 
 配置`application.yml`
 
@@ -101,6 +101,8 @@ spring:
     SSE (Server Send Event) 服务器发送事件
 
     将用户的操作记录到数据库，并实时展示在log页面
+
+---
 
 ### 参考资料
 
