@@ -5,20 +5,20 @@
     <title>notes</title>
 </head>
 <body>
-    <p>all notes are as follows:</p>
+    <p>all notes are shown bellow:</p>
     <#if notes??>
-        <table border="1px">
+        <table border="1px" width="600px">
             <thead>
-            <tr><td>ID</td><td>name</td><td>message</td></tr>
+            <tr><td>#</td><td>ID</td><td>name</td><td>message</td></tr>
             </thead>
             <tbody>
             <#list notes as note>
-                <tr><td>${note.id}</td><td>${note.name}</td><td>${note.message}</td></tr>
+                <tr><td>${note_index + 1}</td><td>${note.id}</td><td>${note.name}</td><td>${note.message}</td></tr>
             </#list>
             </tbody>
         </table>
-        <#else>
-            <p>nothing</p>
+    <#else>
+        <p>nothing</p>
     </#if>
 </body>
 </html>

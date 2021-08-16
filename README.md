@@ -111,6 +111,8 @@ spring:
 
 ### 参考资料
 
+* [模板开发指南 - FreeMarker 中文官方参考手册](http://freemarker.foofun.cn/dgui.html)
+
 * [SpringBoot连接SQLite数据库](https://github.com/restart1025/Spring-Boot-SQLite)
 
 * [SpringBoot 消息推送之 WebSocket 和 SseEmitter](https://www.jianshu.com/p/32d9989cae6f)

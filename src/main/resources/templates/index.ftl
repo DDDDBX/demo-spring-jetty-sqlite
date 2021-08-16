@@ -8,7 +8,7 @@
 
     <h1>Welcome to myapp!</h1>
 
-    <p>Some test URL ↓</p>
+    <p>Some test URLs ↓</p>
 
     <a href="/myapp/hello?name=Jerry">hello</a>
     <br>
