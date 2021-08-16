@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -17,12 +18,16 @@ public class NoteController {
   private NoteRepository noteRepository;
 
   @RequestMapping("/notes")
-  public String notes() {
+  public ModelAndView notes() {
     List<Note> notes = noteRepository.findAllNotes();
-    if (notes.isEmpty()) {
-      return "nothing";
-    }
-    return notes.toString();
+//    if (notes.isEmpty()) {
+//      return "nothing";
+//    }
+//    return notes.toString();
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("notes", notes);
+    mv.setViewName("notes");
+    return mv;
   }
 
   @OperationLog(description = "query one note")

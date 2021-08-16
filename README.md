@@ -18,7 +18,7 @@
 ![创建项目-1](docs/imgs/20210806102525.png)
 ![创建项目-2](docs/imgs/20210806102610.png)
 
-配置`build.gradle`，使用`Jetty`替换`Tomcat`，引入`SQLite JDBC`驱动
+配置`build.gradle`，使用`Jetty`替换`Tomcat`，使用`FreeMarker`作为模板引擎，引入`SQLite JDBC`驱动
 
 ```
 // 排除Spring自带的内嵌Tomcat
@@ -29,12 +29,8 @@ configurations {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-
     implementation 'org.springframework.boot:spring-boot-starter-jetty'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 
     // 解决SQLite JDBC驱动问题
     implementation group:'org.xerial', name:'sqlite-jdbc', version:'3.34.0'
@@ -56,10 +52,15 @@ server:
       selectors: 4
 
 spring:
+  freemarker:
+    suffix: .ftl
+    content-type: text/html
+    charset: UTF-8
+    cache: false
+    template-loader-path: classpath:/templates
+  
   mvc:
-    view:
-      suffix: .html
-      static-path-pattern: /**
+    static-path-pattern: /**
 
   web:
     resources:
@@ -91,6 +92,10 @@ spring:
 ---
 
 ### 2. 扩展功能
+
+#### 登录验证
+
+    进行中
 
 #### AOP实现操作日志
 
