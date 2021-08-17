@@ -32,11 +32,13 @@ spring:
 
   datasource:
     driver-class-name: org.sqlite.JDBC
+    # 使用相对路径
     url: jdbc:sqlite::resource:static/sqlite/mydb.db
     username:
     password:
 
   jpa:
+    # 手动添加SQLiteDialect
     database-platform: com.example.sqlite.SQLiteDialect
     hibernate:
       ddl-auto: update

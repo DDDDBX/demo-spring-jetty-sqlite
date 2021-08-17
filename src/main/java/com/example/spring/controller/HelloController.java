@@ -8,10 +8,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class HelloController {
 
-  @RequestMapping("/")
+  @RequestMapping({"/", "/index"})
   public ModelAndView index() {
     ModelAndView mv = new ModelAndView();
     mv.setViewName("index");
+    return mv;
+  }
+
+  @RequestMapping("/myErrorPage")
+  public ModelAndView error() {
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("my_error");
     return mv;
   }
 
