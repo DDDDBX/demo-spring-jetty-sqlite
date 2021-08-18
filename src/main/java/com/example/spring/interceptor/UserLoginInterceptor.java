@@ -20,7 +20,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
     User currentUser = (User) session.getAttribute("currentUser");
     if (currentUser == null) {
       logger.info("no login user to access: " + request.getRequestURI());
-      response.sendRedirect("loginPage");
+      response.sendRedirect("loginStatus");
       return false;
     }
     return true;

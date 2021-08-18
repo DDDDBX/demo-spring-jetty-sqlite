@@ -25,17 +25,26 @@ public class UserController {
   }
 
   @RequestMapping("/login")
-  public String userLogin(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
+  public ModelAndView userLogin(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
     User user = userRepository.findUserByName(username);
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("login_status");
+    String message;
     if (user == null) {
-      return "user does not exist";
-    }
-    if (!user.getPassword().equals(password)) {
-      return "password is incorrect";
+      message = "user does not exist";
+    } else {
+      if (!user.getPassword().equals(password)) {
+        message = "password is incorrect";
+      }
+      else {
+        message = "login success: " + user;
+        mv.addObject("currentUser", user);
+      }
     }
     HttpSession session = request.getSession();
     session.setAttribute("currentUser", user);
-    return "login success: " + user;
+    mv.addObject("message", message);
+    return mv;
   }
 
   @RequestMapping("/logout")
@@ -43,7 +52,7 @@ public class UserController {
     HttpSession session = request.getSession();
     session.invalidate();
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("login");
+    mv.setViewName("login_status");
     return mv;
   }
 
@@ -51,12 +60,8 @@ public class UserController {
   public ModelAndView loginStatus(HttpServletRequest request) {
     HttpSession session = request.getSession();
     User currentUser = (User) session.getAttribute("currentUser");
-    String username = null;
-    if (currentUser != null) {
-      username = currentUser.getName();
-    }
     ModelAndView mv = new ModelAndView();
-    mv.addObject("username", username);
+    mv.addObject("currentUser", currentUser);
     mv.setViewName("login_status");
     return mv;
   }
