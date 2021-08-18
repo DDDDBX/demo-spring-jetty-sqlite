@@ -85,7 +85,7 @@ spring:
 
 1. `IDEA`中直接运行主类
 
-2. 使用`Gradle`的`build`命令将项目打包成jar文件，在终端中执行`java -jar your-file-path.jar`命令
+2. 使用`Gradle`的`build`命令将项目打包成`jar`文件，在终端中执行`java -jar your-file-path.jar`命令
 
 服务启动后，浏览器访问 http://localhost:8080/myapp 即可进入主页。
 
@@ -99,9 +99,11 @@ spring:
 
     通过interceptor拦截未登录请求并跳转至登录页面
 
-#### AOP实现操作日志
+#### AOP实现操作日志记录
 
-    AOP使用注解，获取用户IP、操作内容、操作时间等信息
+    AOP (Aspect Oriented Programming) 使用注解方式
+
+    获取用户IP、操作内容、操作时间等信息
 
 #### SSE实现日志实时展示
 
