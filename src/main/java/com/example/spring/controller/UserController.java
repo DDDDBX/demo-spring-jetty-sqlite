@@ -28,7 +28,6 @@ public class UserController {
   public ModelAndView userLogin(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
     User user = userRepository.findUserByName(username);
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("login_status");
     String message;
     if (user == null) {
       message = "user does not exist";
@@ -39,11 +38,12 @@ public class UserController {
       else {
         message = "login success: " + user;
         mv.addObject("currentUser", user);
+        HttpSession session = request.getSession();
+        session.setAttribute("currentUser", user);
       }
     }
-    HttpSession session = request.getSession();
-    session.setAttribute("currentUser", user);
     mv.addObject("message", message);
+    mv.setViewName("login_status");
     return mv;
   }
 
