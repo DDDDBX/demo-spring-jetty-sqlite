@@ -30,6 +30,9 @@ dependencies {
 
     // 解决SQLite JDBC驱动问题
     implementation group:'org.xerial', name:'sqlite-jdbc', version:'3.34.0'
+
+    implementation 'com.alibaba:fastjson:1.2.76'
+    implementation 'com.zjiecode:wxpusher-java-sdk:2.1.3'
 }
 
 //test {

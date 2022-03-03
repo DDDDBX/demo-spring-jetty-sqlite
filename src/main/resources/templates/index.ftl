@@ -22,6 +22,10 @@
     <br>
     <a href="/myapp/sse">SSE-日志实时展示</a>
     <br>
+    <a href="/myapp/wx/followers">followers</a>
+    <br>
+    <a href="/myapp/wx//createQrcode/AnImportantParameter">创建临时二维码</a>
+    <br>
     <a href="/myapp/myErrorPage">[error page] 错误页面</a>
 
 </body>

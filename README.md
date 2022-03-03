@@ -20,64 +20,9 @@
 
 配置`build.gradle`，使用`Jetty`替换`Tomcat`，使用`FreeMarker`作为模板引擎，引入`SQLite JDBC`驱动
 
-```
-// 排除Spring自带的内嵌Tomcat
-configurations {
-    implementation.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
-    implementation.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
-    implementation.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-jetty'
-    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
-
-    // 解决SQLite JDBC驱动问题
-    implementation group:'org.xerial', name:'sqlite-jdbc', version:'3.34.0'
-}
-```
-
 创建`SQLite`数据库文件`mydb.db`，存放于`resources/static/sqlite/`目录下，设计相关表结构并添加数据
 
 配置`application.yml`
-
-```
-server:
-  port: 8080
-  servlet:
-    context-path: /myapp
-  jetty:
-    threads:
-      acceptors: 2
-      selectors: 4
-
-spring:
-  freemarker:
-    suffix: .ftl
-    content-type: text/html
-    charset: UTF-8
-    cache: false
-    template-loader-path: classpath:/templates
-  
-  mvc:
-    static-path-pattern: /**
-
-  web:
-    resources:
-      static-locations: classpath:/templates/,classpath:/static/
-
-  datasource:
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite::resource:static/sqlite/mydb.db
-    username:
-    password:
-
-  jpa:
-    database-platform: com.example.sqlite.SQLiteDialect
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-```
 
 #### 项目运行
 
@@ -111,6 +56,10 @@ spring:
 
     将用户的操作记录到数据库，并实时展示在log页面
 
+#### 接入WxPusher消息推送平台
+
+    通过微信消息推送平台API（Java SDK），向关注的微信用户推送消息
+
 ---
 
 ### 参考资料
@@ -120,6 +69,10 @@ spring:
 * [SpringBoot连接SQLite数据库](https://github.com/restart1025/Spring-Boot-SQLite)
 
 * [SpringBoot 消息推送之 WebSocket 和 SseEmitter](https://www.jianshu.com/p/32d9989cae6f)
+
+* [WxPusher微信推送服务](https://wxpusher.zjiecode.com/docs/#/)
+
+* [WxPusher Java SDK](https://github.com/wxpusher/wxpusher-sdk-java/)
 
 ---
 

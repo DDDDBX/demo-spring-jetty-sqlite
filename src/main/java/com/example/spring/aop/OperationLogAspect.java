@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Objects;
 
 @Aspect
@@ -32,8 +31,7 @@ public class OperationLogAspect {
   private Object recordOperationLog(ProceedingJoinPoint joinPoint, OperationLog log) throws Throwable {
 
     // 获取用户操作信息
-    Date date = new Date();
-    long timestamp = date.getTime();
+    long timestamp = System.currentTimeMillis();
 //    logger.info("timestamp: " + timestamp);
     HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     String remoteIp = request.getRemoteAddr();
@@ -53,9 +51,9 @@ public class OperationLogAspect {
     // 记录操作日志并写入数据库
     Log opLog = new Log(remoteIp, operation, arguments, description, timestamp);
     Log save = logRepository.save(opLog);
-    logger.info("save: " + save);
+    logger.info("log: " + save);
     SseEmitterServer.batchSendMessage(opLog.toString());
-    logger.info("batchSendMessage: " + opLog);
+//    logger.info("batchSendMessage: " + opLog);
     logger.info("returned value: " + returnedValue);
 
     return returnedValue;

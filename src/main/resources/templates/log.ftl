@@ -10,7 +10,7 @@
     <div id="message"></div>
 </body>
 <script>
-    let URL_PREFIX = "http://localhost:8080";
+    let URL_PREFIX = "${domain_url}";
     let source = null;
 
     // 用时间戳模拟登录用户

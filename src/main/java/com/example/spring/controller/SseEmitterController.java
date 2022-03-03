@@ -1,5 +1,6 @@
 package com.example.spring.controller;
 
+import com.example.spring.config.Config;
 import com.example.spring.sse.SseEmitterServer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ public class SseEmitterController {
   @RequestMapping("")
   public ModelAndView sse() {
     ModelAndView mv = new ModelAndView();
+    mv.addObject("domain_url", Config.DOMAIN_URL);
     mv.setViewName("log");
     return mv;
   }

@@ -32,8 +32,10 @@ spring:
 
   datasource:
     driver-class-name: org.sqlite.JDBC
-    # 使用相对路径
-    url: jdbc:sqlite::resource:static/sqlite/mydb.db
+    # 注意：使用相对路径（:resource:xxx）时，项目编译后会复制一份到build目录中，操作只会修改副本，而原来的数据库文件并不会发生变化
+#    url: jdbc:sqlite::resource:static/sqlite/mydb.db
+    # 使用绝对路径
+    url: jdbc:sqlite:D:/Java/projects/demo-spring-jetty-sqlite-master/src/main/resources/static/sqlite/mydb.db
     username:
     password:
 
