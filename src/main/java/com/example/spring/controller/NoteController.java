@@ -1,6 +1,5 @@
 package com.example.spring.controller;
 
-import com.example.spring.aop.OperationLog;
 import com.example.spring.entity.Note;
 import com.example.spring.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ public class NoteController {
     return mv;
   }
 
-  @OperationLog(description = "query one note")
   @RequestMapping("/note/{noteId}")
   public String note(@PathVariable("noteId") Long noteId) {
     Note note = noteRepository.findNoteById(noteId);

@@ -1,5 +1,6 @@
 package com.example.spring.controller;
 
+import com.example.spring.aop.OperationLog;
 import com.example.spring.entity.User;
 import com.example.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class UserController {
     return mv;
   }
 
+  @OperationLog(description = "user login")
   @RequestMapping("/login")
   public ModelAndView userLogin(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
     User user = userRepository.findUserByName(username);

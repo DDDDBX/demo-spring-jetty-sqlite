@@ -1,5 +1,8 @@
 package com.example.spring.sse;
 
+import com.example.spring.utils.WxUtils;
+import com.zjiecode.wxpusher.client.bean.MessageResult;
+import com.zjiecode.wxpusher.client.bean.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -78,6 +81,7 @@ public class SseEmitterServer {
         v.send(wsInfo, MediaType.APPLICATION_JSON);
       } catch (IOException e) {
         logger.error("用户[{}]推送异常: {}", k, e.getMessage());
+        Result<List<MessageResult>> result = WxUtils.sendWarningMessage("用户[" + k + "]推送异常: " + e.getMessage());
         removeUser(k);
       }
     });
